@@ -67,11 +67,15 @@ class CustomNavbar extends HTMLElement {
                             <i data-feather="home" class="nav-link-icon"></i>
                             Inicio
                         </a>
-                        <a href="/tickets" class="nav-link">
+                        <a href="/" class="nav-link">
                             <i data-feather="list" class="nav-link-icon"></i>
                             Tickets
                         </a>
-                        <a href="/reports" class="nav-link">
+                        <a href="/edit-ticket.html" class="nav-link">
+                            <i data-feather="plus" class="nav-link-icon"></i>
+                            Nuevo Ticket
+                        </a>
+<a href="/reports" class="nav-link">
                             <i data-feather="bar-chart-2" class="nav-link-icon"></i>
                             Reportes
                         </a>

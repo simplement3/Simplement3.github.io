@@ -74,12 +74,14 @@ class TicketCard extends HTMLElement {
                     gap: 0.5rem;
                 }
             </style>
-            <div class="ticket-card" onclick="openTicketDetails('${ticketId}')">
-                <div class="ticket-header">
+            <div class="ticket-card">
+                <a href="/edit-ticket.html?ticket=${ticketId}" class="block">
+<div class="ticket-header">
                     <span class="ticket-id">${ticketId}</span>
                     <span class="ticket-date">${date} • ${time}</span>
-                </div>
-                <div class="ticket-body">
+                </a>
+            </div>
+<div class="ticket-body">
                     <h3 class="ticket-title">${issue}</h3>
                     <p class="ticket-description">${description}</p>
                 </div>
