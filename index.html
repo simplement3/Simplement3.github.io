@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechTroubleTickets Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="components/navbar.js"></script>
+    <script src="components/ticket-card.js"></script>
+    <script src="components/status-badge.js"></script>
+</head>
+
+<body class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Tickets de Soporte</h1>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
+                <i data-feather="plus" class="mr-2"></i> Nuevo Ticket
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Ticket 1 -->
+            <custom-ticket-card ticket-id="TS-HW-0238" date="18/09/2025" time="09:15 a.m." status="Apertura"
+                priority="Alta" type="Hardware" client="Juan Pérez" issue="El equipo no enciende"
+                description="PC de escritorio corporativo no enciende en absoluto. No muestra luces, sonidos ni ningún otro indicio de funcionamiento."></custom-ticket-card>
+
+            <!-- Ticket 2 -->
+            <custom-ticket-card ticket-id="TS-PRN-0524" date="05/11/2025" time="10:42 a.m." status="Apertura"
+                priority="Alta" type="Periféricos" client="María Fernanda Gómez" issue="No puede imprimir"
+                description="No es posible realizar impresiones utilizando la impresora de red identificada como HR-FLOOR2."></custom-ticket-card>
+
+            <!-- Ticket 3 -->
+            <custom-ticket-card ticket-id="TS-NET-0631" date="12/11/2025" time="08:57 a.m." status="Apertura"
+                priority="Alta" type="Redes" client="Andrés Morales" issue="Red lenta o sin internet"
+                description="La conexión se encuentra lenta o completamente sin acceso a internet, afectando el normal desarrollo de sus actividades laborales."></custom-ticket-card>
+
+            <!-- Ticket 4 -->
+            <custom-ticket-card ticket-id="TS-SW-0789" date="03/12/2025" time="11:26 a.m." status="Apertura"
+                priority="Alta" type="Software" client="Camila Ríos" issue="Pantallazo Azul (BSOD)"
+                description="Equipo presenta un pantallazo azul de forma recurrente, provocando reinicios inesperados y pérdida de continuidad en el trabajo."></custom-ticket-card>
+
+            <!-- Ticket 5 -->
+            <custom-ticket-card ticket-id="TS-SW-0912" date="10/12/2025" time="04:08 p.m." status="Apertura"
+                priority="Alta" type="Software" client="Ricardo Salazar" issue="Usuario molesto"
+                description="Usuario manifiesta un alto nivel de inconformidad y molestia debido a que el problema afecta su trabajo."></custom-ticket-card>
+        </div>
+    </main>
+
+    <script>
+        feather.replace();
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
