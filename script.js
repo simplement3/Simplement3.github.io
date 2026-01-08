@@ -1,18 +1,12 @@
+document.addEventListener('DOMContentLoaded', () => {
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize tooltips
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-
-    // Handle ticket form submission
+    /* ===== EDITAR / CREAR TICKET ===== */
     const ticketForm = document.getElementById('ticketForm');
+
     if (ticketForm) {
-        ticketForm.addEventListener('submit', function(e) {
+        ticketForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            // Get form values
+
             const ticketData = {
                 client: document.getElementById('client').value,
                 issue: document.getElementById('issue').value,
@@ -22,46 +16,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 type: document.getElementById('type').value
             };
 
-            // In a real app, this would send to an API
-            console.log('Saving ticket:', ticketData);
-            
-            // Show success message and redirect
+            console.log('Ticket guardado (demo):', ticketData);
             alert('Ticket actualizado correctamente');
             window.location.href = '/';
         });
     }
 
-    // Ticket filter functionality
-const filterButtons = document.querySelectorAll('.filter-btn');
-    if (filterButtons) {
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const filterValue = this.getAttribute('data-filter');
-                filterTickets(filterValue);
+    /* ===== FILTROS DE TICKETS ===== */
+    const buttons = document.querySelectorAll('.filter-btn');
+    const tickets = document.querySelectorAll('custom-ticket-card');
+
+    if (buttons.length && tickets.length) {
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+
+                // UX: marcar botón activo
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                tickets.forEach(ticket => {
+                    const status = ticket.getAttribute('status');
+
+                    ticket.style.display =
+                        filter === 'all' || status === filter
+                            ? 'block'
+                            : 'none';
+                });
             });
         });
     }
-
-    function filterTickets(filter) {
-        const tickets = document.querySelectorAll('.ticket-card');
-        tickets.forEach(ticket => {
-            if (filter === 'all') {
-                ticket.style.display = 'block';
-            } else {
-                const ticketStatus = ticket.getAttribute('data-status');
-                if (ticketStatus === filter) {
-                    ticket.style.display = 'block';
-                } else {
-                    ticket.style.display = 'none';
-                }
-            }
-        });
-    }
 });
-
-// Function to open ticket details modal
-function openTicketDetails(ticketId) {
-    // In a real app, this would fetch ticket details from an API
-    console.log(`Opening details for ticket ${ticketId}`);
-    // Show modal with ticket details
-}

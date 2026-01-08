@@ -39,3 +39,90 @@ body {
 .pulse-animation {
     animation: pulse 2s infinite;
 }
+
+/* ===== Animated Background (Global) ===== */
+.animated-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    background: linear-gradient(
+        120deg,
+        #0f172a,   /* azul oscuro base */
+        #1e40af,   /* azul principal */
+        #5606ff,   /* violeta tech */
+        #312e81    /* índigo profundo */
+    );
+    background-size: 400% 400%;
+    animation: gradientFlow 18s ease infinite;
+}
+
+/* Suaviza el efecto para que no canse la vista */
+.animated-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(254, 137, 137, 0.15),
+        transparent 60%
+    );
+}
+
+/* Animación */
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ===== FILTROS DE TICKETS ===== */
+.filter-btn {
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #e5e7eb; /* gris suave */
+    color: #334155;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    background-color: #c7d2fe; /* azul suave */
+    color: #1e40af;
+}
+
+.filter-btn.active {
+    background-color: #1e40af; /* azul principal */
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(30, 64, 175, 0.25);
+}
+
+/* ===== TARJETAS ===== */
+custom-ticket-card {
+    display: block;
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+main {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    border-radius: 1rem;
+}
+
+/* ===== TEXTOS ===== */
+h1, h2, h3 {
+    color: #0f172a;
+}
+
+p, span {
+    color: #334155;
+}
