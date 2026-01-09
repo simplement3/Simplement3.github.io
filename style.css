@@ -47,13 +47,14 @@ body {
     z-index: -10;
     background: linear-gradient(
         120deg,
-        #0f172a,   /* azul oscuro base */
-        #1e40af,   /* azul principal */
-        #5606ff,   /* violeta tech */
-        #312e81    /* índigo profundo */
+        #020617,
+        #1e3a8a,
+        #5606ff,
+        #9333ea,
+        #0f172a
     );
-    background-size: 400% 400%;
-    animation: gradientFlow 18s ease infinite;
+    background-size: 600% 600%;
+    animation: gradientFlow 14s ease infinite;
 }
 
 /* Suaviza el efecto para que no canse la vista */
@@ -61,11 +62,9 @@ body {
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-        circle at 30% 30%,
-        rgba(254, 137, 137, 0.15),
-        transparent 60%
-    );
+    background:
+        radial-gradient(circle at 20% 30%, rgba(99,102,241,0.35), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(236,72,153,0.25), transparent 60%);
 }
 
 /* Animación */
