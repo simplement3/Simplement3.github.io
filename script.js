@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('tickets', JSON.stringify(tickets));
     }
 
-    /* ===== INDEX: RENDER TICKETS ===== */
+    /* ======================================================
+       INDEX.HTML → RENDER TICKETS
+    ====================================================== */
     const ticketGrid = document.querySelector('.grid');
 
     function renderTickets(filter = 'all') {
@@ -15,21 +17,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ticketGrid.innerHTML = '';
 
-        tickets.forEach(ticket => {
-            const ticketStatus = ticket.status || 'Apertura';
+        if (tickets.length === 0) {
+            ticketGrid.innerHTML = `
+                <p class="text-gray-500 col-span-full text-center">
+                    No hay tickets creados todavía
+                </p>`;
+            return;
+        }
 
-            if (filter !== 'all' && ticketStatus !== filter) return;
+        tickets.forEach(ticket => {
+            if (filter !== 'all' && ticket.status !== filter) return;
 
             const card = document.createElement('custom-ticket-card');
+
             card.setAttribute('ticket-id', ticket.ticketId);
             card.setAttribute('date', ticket.date);
             card.setAttribute('time', ticket.time);
-            card.setAttribute('status', ticketStatus);
-            card.setAttribute('priority', ticket.priority || 'Media');
-            card.setAttribute('type', ticket.type || 'Software');
-            card.setAttribute('client', ticket.client || '');
-            card.setAttribute('issue', ticket.issue || '');
-            card.setAttribute('description', ticket.description || '');
+            card.setAttribute('status', ticket.status);
+            card.setAttribute('priority', ticket.priority);
+            card.setAttribute('type', ticket.type);
+            card.setAttribute('client', ticket.client);
+            card.setAttribute('issue', ticket.issue);
+            card.setAttribute('description', ticket.description);
 
             ticketGrid.appendChild(card);
         });
@@ -38,68 +47,76 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTickets();
 
     /* ===== FILTROS ===== */
-    const filterButtons = document.querySelectorAll('.filter-btn');
-
-    filterButtons.forEach(btn => {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            filterButtons.forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             renderTickets(btn.dataset.filter);
         });
     });
 
-    /* ===== EDIT / CREATE TICKET ===== */
+    /* ======================================================
+       EDIT-TICKET.HTML → CREATE / EDIT
+    ====================================================== */
     const ticketForm = document.getElementById('ticketForm');
-    if (!ticketForm) return;
+    if (!ticketForm) return; // 👈 ahora sí, SOLO corta aquí
 
     const params = new URLSearchParams(window.location.search);
     const ticketIdParam = params.get('ticket');
     const isEdit = Boolean(ticketIdParam);
 
-    let currentTicket = null;
+    const ticketIdInput = document.getElementById('ticketId');
+    const ticketDateInput = document.getElementById('ticketDate');
 
+    /* ===== EDIT MODE ===== */
     if (isEdit) {
-        currentTicket = tickets.find(t => t.ticketId === ticketIdParam);
+        const ticket = tickets.find(t => t.ticketId === ticketIdParam);
 
-        if (currentTicket) {
-            ticketId.value = currentTicket.ticketId;
-            ticketDate.value = `${currentTicket.date} • ${currentTicket.time}`;
-            client.value = currentTicket.client;
-            issue.value = currentTicket.issue;
-            description.value = currentTicket.description;
-            status.value = currentTicket.status || 'Apertura';
-            priority.value = currentTicket.priority || 'Media';
-            type.value = currentTicket.type || 'Software';
+        if (!ticket) {
+            alert('Ticket no encontrado');
+            window.location.href = '/';
+            return;
         }
-    } else {
-        // CREAR NUEVO
+
+        ticketIdInput.value = ticket.ticketId;
+        ticketDateInput.value = `${ticket.date} • ${ticket.time}`;
+        client.value = ticket.client;
+        issue.value = ticket.issue;
+        description.value = ticket.description;
+        status.value = ticket.status;
+        priority.value = ticket.priority;
+        type.value = ticket.type;
+
+    } 
+    /* ===== CREATE MODE ===== */
+    else {
         const now = new Date();
-        ticketId.value = `TS-${Date.now()}`;
-        ticketDate.value =
+        ticketIdInput.value = `TS-${now.getTime()}`;
+        ticketDateInput.value =
             now.toLocaleDateString() + ' • ' + now.toLocaleTimeString();
-        status.value = 'Apertura';
     }
 
+    /* ===== SUBMIT ===== */
     ticketForm.addEventListener('submit', e => {
         e.preventDefault();
 
+        const [date, time] = ticketDateInput.value.split(' • ');
+
         const ticketData = {
-            ticketId: ticketId.value,
-            date: ticketDate.value.split(' • ')[0],
-            time: ticketDate.value.split(' • ')[1],
-            client: client.value,
-            issue: issue.value,
-            description: description.value,
-            status: status.value,          // 🔑 CLAVE
+            ticketId: ticketIdInput.value,
+            date,
+            time,
+            client: client.value.trim(),
+            issue: issue.value.trim(),
+            description: description.value.trim(),
+            status: status.value,
             priority: priority.value,
             type: type.value
         };
 
         if (isEdit) {
             const index = tickets.findIndex(t => t.ticketId === ticketIdParam);
-            if (index !== -1) {
-                tickets[index] = { ...tickets[index], ...ticketData };
-            }
+            tickets[index] = ticketData;
             alert('Ticket actualizado correctamente');
         } else {
             tickets.push(ticketData);
