@@ -1,88 +1,93 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* ===== STORAGE INIT ===== */
     if (!Array.isArray(JSON.parse(localStorage.getItem('tickets')))) {
         localStorage.setItem('tickets', JSON.stringify([]));
     }
 
-    /* ===== INDEX: RENDER TICKETS ===== */
-    const ticketGrid = document.getElementById('ticketGrid');
+    let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+
+    /* ===== INDEX ===== */
+    const grid = document.getElementById('ticketGrid');
 
     function renderTickets(filter = 'all') {
-        if (!ticketGrid) return;
-
-        const tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-        ticketGrid.innerHTML = '';
+        if (!grid) return;
+        grid.innerHTML = '';
 
         tickets.forEach(ticket => {
             if (filter !== 'all' && ticket.status !== filter) return;
 
             const card = document.createElement('custom-ticket-card');
+
+            // 🔧 MAPEO EXPLÍCITO (NO ROMPE NADA)
             card.setAttribute('ticket-id', ticket.ticketId);
             card.setAttribute('date', ticket.date);
             card.setAttribute('time', ticket.time);
-            card.setAttribute('status', ticket.status);
-            card.setAttribute('priority', ticket.priority);
-            card.setAttribute('type', ticket.type);
             card.setAttribute('client', ticket.client);
             card.setAttribute('issue', ticket.issue);
             card.setAttribute('description', ticket.description);
+            card.setAttribute('status', ticket.status);
+            card.setAttribute('priority', ticket.priority);
+            card.setAttribute('type', ticket.type);
 
-            ticketGrid.appendChild(card);
+            // Datos nuevos (se conservan aunque no se muestren aún)
+            card.setAttribute('phone', ticket.phone || '');
+            card.setAttribute('email', ticket.email || '');
+            card.setAttribute('source', ticket.source || '');
+
+            grid.appendChild(card);
         });
     }
 
     renderTickets();
 
-    /* ===== FILTROS ===== */
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.filter-btn')
                 .forEach(b => b.classList.remove('active'));
-
             btn.classList.add('active');
             renderTickets(btn.dataset.filter);
         });
     });
 
-    /* ===== EDIT / CREATE TICKET ===== */
-    const ticketForm = document.getElementById('ticketForm');
-    if (!ticketForm) return;
+    /* ===== FORM ===== */
+    const form = document.getElementById('ticketForm');
+    if (!form) return;
 
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(location.search);
     const ticketIdParam = params.get('ticket');
     const isEdit = Boolean(ticketIdParam);
 
-    let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-    let currentTicket = null;
+    let current = tickets.find(t => t.ticketId === ticketIdParam);
 
-    if (isEdit) {
-        currentTicket = tickets.find(t => t.ticketId === ticketIdParam);
-
-        if (currentTicket) {
-            ticketId.value = currentTicket.ticketId;
-            ticketDate.value = `${currentTicket.date} • ${currentTicket.time}`;
-            client.value = currentTicket.client;
-            issue.value = currentTicket.issue;
-            description.value = currentTicket.description;
-            status.value = currentTicket.status;
-            priority.value = currentTicket.priority;
-            type.value = currentTicket.type;
-        }
+    if (isEdit && current) {
+        ticketId.value = current.ticketId;
+        ticketDate.value = `${current.date} • ${current.time}`;
+        client.value = current.client;
+        phone.value = current.phone || '';
+        email.value = current.email || '';
+        source.value = current.source || '';
+        issue.value = current.issue;
+        description.value = current.description;
+        status.value = current.status;
+        priority.value = current.priority;
+        type.value = current.type;
     } else {
         const now = new Date();
         ticketId.value = `TS-${now.getTime()}`;
         ticketDate.value = `${now.toLocaleDateString()} • ${now.toLocaleTimeString()}`;
     }
 
-    ticketForm.addEventListener('submit', e => {
+    form.addEventListener('submit', e => {
         e.preventDefault();
 
-        const ticketData = {
+        const data = {
             ticketId: ticketId.value,
             date: ticketDate.value.split(' • ')[0],
             time: ticketDate.value.split(' • ')[1],
             client: client.value,
+            phone: phone.value,
+            email: email.value,
+            source: source.value,
             issue: issue.value,
             description: description.value,
             status: status.value,
@@ -91,15 +96,13 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         if (isEdit) {
-            const index = tickets.findIndex(t => t.ticketId === ticketIdParam);
-            tickets[index] = { ...tickets[index], ...ticketData };
-            alert('Ticket actualizado correctamente');
+            const i = tickets.findIndex(t => t.ticketId === ticketIdParam);
+            tickets[i] = { ...tickets[i], ...data };
         } else {
-            tickets.push(ticketData);
-            alert('Ticket creado correctamente');
+            tickets.push(data);
         }
 
         localStorage.setItem('tickets', JSON.stringify(tickets));
-        window.location.href = '/';
+        location.href = '/';
     });
 });

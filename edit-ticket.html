@@ -9,107 +9,91 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-
     <script src="components/navbar.js"></script>
 </head>
 
 <body class="bg-gray-50">
     <div class="animated-bg"></div>
-
     <custom-navbar></custom-navbar>
 
     <main class="container mx-auto px-4 py-8 max-w-4xl">
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">Editar Ticket</h1>
-            <a href="/" class="text-gray-600 hover:text-gray-800 flex items-center">
-                <i data-feather="arrow-left" class="mr-2"></i>
-                Volver
-            </a>
-        </div>
+        <h1 class="text-3xl font-bold mb-6">Ticket</h1>
 
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="bg-white rounded-xl shadow-lg p-6">
             <form id="ticketForm">
 
-                <!-- INFO GENERAL -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <label class="block text-gray-700 font-medium mb-2">ID del Ticket</label>
-                        <input type="text" id="ticketId" class="w-full px-4 py-2 border rounded-lg bg-gray-100"
-                            readonly />
+                        <label>ID Ticket</label>
+                        <input id="ticketId" readonly class="w-full px-3 py-2 border rounded bg-gray-100" />
                     </div>
-
                     <div>
-                        <label class="block text-gray-700 font-medium mb-2">Fecha y Hora</label>
-                        <input type="text" id="ticketDate" class="w-full px-4 py-2 border rounded-lg bg-gray-100"
-                            readonly />
+                        <label>Fecha / Hora</label>
+                        <input id="ticketDate" readonly class="w-full px-3 py-2 border rounded bg-gray-100" />
                     </div>
                 </div>
 
-                <!-- CLIENTE -->
-                <div class="mb-6">
-                    <label for="client" class="block text-gray-700 font-medium mb-2">Cliente</label>
-                    <input type="text" id="client"
-                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500" required />
+                <div class="mb-4">
+                    <label>Cliente</label>
+                    <input id="client" class="w-full px-3 py-2 border rounded" required />
                 </div>
 
-                <!-- PROBLEMA -->
-                <div class="mb-6">
-                    <label for="issue" class="block text-gray-700 font-medium mb-2">Problema</label>
-                    <input type="text" id="issue"
-                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500" required />
-                </div>
-
-                <!-- DESCRIPCIÓN -->
-                <div class="mb-6">
-                    <label for="description" class="block text-gray-700 font-medium mb-2">Descripción</label>
-                    <textarea id="description" rows="4"
-                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500" required></textarea>
-                </div>
-
-                <!-- SELECTORES -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                     <div>
-                        <label for="status" class="block text-gray-700 font-medium mb-2">Estado</label>
-                        <select id="status" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                            <option value="Apertura">Apertura</option>
-                            <option value="En progreso">En progreso</option>
-                            <option value="Resuelto">Resuelto</option>
-                            <option value="Escalada">Escalada</option>
-                            <option value="Cierre">Cierre</option>
-                        </select>
+                        <label>Teléfono</label>
+                        <input id="phone" class="w-full px-3 py-2 border rounded" />
                     </div>
-
                     <div>
-                        <label for="priority" class="block text-gray-700 font-medium mb-2">Prioridad</label>
-                        <select id="priority"
-                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                            <option value="Alta">Alta</option>
-                            <option value="Media">Media</option>
-                            <option value="Baja">Baja</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="type" class="block text-gray-700 font-medium mb-2">Tipo</label>
-                        <select id="type" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                            <option value="Hardware">Hardware</option>
-                            <option value="Software">Software</option>
-                            <option value="Redes">Redes</option>
-                            <option value="Periféricos">Periféricos</option>
-                        </select>
+                        <label>Email</label>
+                        <input id="email" type="email" class="w-full px-3 py-2 border rounded" />
                     </div>
                 </div>
 
-                <!-- ACCIONES -->
+                <div class="mb-4">
+                    <label>Fuente</label>
+                    <select id="source" class="w-full px-3 py-2 border rounded">
+                        <option>Llamada telefónica</option>
+                        <option>Correo electrónico</option>
+                        <option>Web-Chat</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label>Problema</label>
+                    <input id="issue" class="w-full px-3 py-2 border rounded" required />
+                </div>
+
+                <div class="mb-4">
+                    <label>Descripción</label>
+                    <textarea id="description" rows="4" class="w-full px-3 py-2 border rounded"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <select id="status" class="px-3 py-2 border rounded">
+                        <option>Apertura</option>
+                        <option>Resuelto</option>
+                        <option>Escalada</option>
+                        <option>Cierre</option>
+                    </select>
+
+                    <select id="priority" class="px-3 py-2 border rounded">
+                        <option>Alta</option>
+                        <option>Media</option>
+                        <option>Baja</option>
+                    </select>
+
+                    <select id="type" class="px-3 py-2 border rounded">
+                        <option>Hardware</option>
+                        <option>Software</option>
+                        <option>Redes</option>
+                        <option>Periféricos</option>
+                    </select>
+                </div>
+
                 <div class="flex justify-end gap-4">
-                    <a href="/" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-                        Cancelar
-                    </a>
-
-                    <button type="submit"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center">
-                        <i data-feather="save" class="mr-2"></i>
-                        Guardar Cambios
+                    <a href="/" class="px-4 py-2 border rounded">Cancelar</a>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">
+                        Guardar
                     </button>
                 </div>
 

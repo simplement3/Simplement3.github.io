@@ -1,68 +1,118 @@
 class TicketCard extends HTMLElement {
     connectedCallback() {
-        const ticketId = this.getAttribute('ticket-id') || 'TS-XXXX-XXXX';
-        const date = this.getAttribute('date') || 'DD/MM/YYYY';
-        const time = this.getAttribute('time') || 'HH:MM';
+        const ticketId = this.getAttribute('ticket-id') || 'TS-XXXX';
+        const date = this.getAttribute('date') || '';
+        const time = this.getAttribute('time') || '';
         const status = this.getAttribute('status') || 'Apertura';
         const priority = this.getAttribute('priority') || 'Media';
         const type = this.getAttribute('type') || 'Software';
         const client = this.getAttribute('client') || 'Cliente';
-        const issue = this.getAttribute('issue') || 'Problema no especificado';
-        const description = this.getAttribute('description') || 'Descripción no disponible';
+        const issue = this.getAttribute('issue') || '';
+        const description = this.getAttribute('description') || '';
 
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.innerHTML = `
             <style>
-                .ticket-card {
-                    background-color: white;
-                    border-radius: 0.5rem;
-                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-                    overflow: hidden;
-                    transition: transform 0.2s, box-shadow 0.2s;
+                * {
+                    box-sizing: border-box;
                 }
+
+                .ticket-card {
+                    background: white;
+                    border-radius: 0.75rem;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                    overflow: hidden;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    transition: transform .2s ease, box-shadow .2s ease;
+                }
+
                 .ticket-card:hover {
                     transform: translateY(-2px);
-                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
                 }
+
+                a {
+                    text-decoration: none;
+                    color: inherit;
+                }
+
                 .ticket-header {
-                    padding: 1rem;
+                    padding: 0.75rem 1rem;
                     border-bottom: 1px solid #e5e7eb;
                     display: flex;
                     justify-content: space-between;
+                    font-size: 0.8rem;
                 }
+
                 .ticket-id {
                     font-weight: 600;
                     color: #1e40af;
+                    white-space: nowrap;
                 }
+
                 .ticket-date {
                     color: #6b7280;
-                    font-size: 0.875rem;
+                    white-space: nowrap;
                 }
+
                 .ticket-body {
                     padding: 1rem;
+                    flex: 1;
+                    overflow: hidden;
                 }
+
                 .ticket-title {
-                    font-size: 1.125rem;
+                    font-size: 1rem;
                     font-weight: 600;
                     margin-bottom: 0.5rem;
+                    color: #0f172a;
+
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
                 }
+
                 .ticket-description {
-                    font-size: 0.875rem;
-                    color: #4b5563;
+                    font-size: 0.85rem;
+                    color: #475569;
+                    line-height: 1.4;
+
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
                 }
+
                 .ticket-footer {
-                    padding: 1rem;
+                    padding: 0.75rem 1rem;
                     border-top: 1px solid #e5e7eb;
                     display: flex;
                     justify-content: space-between;
+                    align-items: center;
+                    gap: 0.5rem;
                 }
+
+                .client {
+                    font-size: 0.75rem;
+                    color: #334155;
+                    max-width: 45%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
                 .badge-container {
                     display: flex;
-                    gap: 0.5rem;
+                    gap: 0.25rem;
+                    flex-wrap: wrap;
+                    justify-content: flex-end;
                 }
             </style>
 
-            <div class="ticket-card" data-status="${status}">
+            <div class="ticket-card">
                 <a href="/edit-ticket.html?ticket=${ticketId}">
                     <div class="ticket-header">
                         <span class="ticket-id">${ticketId}</span>
@@ -71,12 +121,12 @@ class TicketCard extends HTMLElement {
                 </a>
 
                 <div class="ticket-body">
-                    <h3 class="ticket-title">${issue}</h3>
-                    <p class="ticket-description">${description}</p>
+                    <div class="ticket-title">${issue}</div>
+                    <div class="ticket-description">${description}</div>
                 </div>
 
                 <div class="ticket-footer">
-                    <span>${client}</span>
+                    <span class="client">${client}</span>
                     <div class="badge-container">
                         <custom-status-badge status="${status}"></custom-status-badge>
                         <custom-status-badge status="${priority}" type="priority"></custom-status-badge>
