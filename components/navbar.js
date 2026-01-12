@@ -19,13 +19,17 @@ class CustomNavbar extends HTMLElement {
                 .logo {
                     display: flex;
                     align-items: center;
-                    font-size: 1.5rem;
+                    gap: 0.75rem;
+                    font-size: 1.4rem;
                     font-weight: 700;
-                    text-decoration: none;
                     color: white;
+                    text-decoration: none;
                 }
-                .logo-icon {
-                    margin-right: 0.5rem;
+                .logo-img {
+                    height: 40px;
+                }
+                .logo2-img {
+                    height: 70px;
                 }
                 .nav-links {
                     display: flex;
@@ -35,74 +39,34 @@ class CustomNavbar extends HTMLElement {
                     color: white;
                     text-decoration: none;
                     font-weight: 500;
-                    transition: opacity 0.2s;
                     display: flex;
                     align-items: center;
+                    gap: 0.4rem;
                 }
                 .nav-link:hover {
                     opacity: 0.8;
-                }
-                .nav-link-icon {
-                    margin-right: 0.5rem;
                 }
                 @media (max-width: 768px) {
                     .nav-container {
                         flex-direction: column;
                         gap: 1rem;
                     }
-                    .nav-links {
-                        width: 100%;
-                        justify-content: space-around;
-                    }
-                }
-                .logo {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.75rem;
-                    font-size: 1.4rem;
-                    font-weight: 700;
-                    color: white;
-                    text-decoration: none;
-                }
-                .logo-img {
-                    height: 40px;
-                    width: auto;
-                    display: block;
-                }
-                    .logo2-img {
-                    height: 85px;
-                    width: auto;
-                    display: block;
                 }
             </style>
+
             <nav>
                 <div class="nav-container">
-                    <a href="/" class="logo">
-                        <img src="./assets/logo2.png" alt="Tech Trouble Ticket2" class="logo2-img">
-                        <img src="./assets/logo.png" alt="Tech Trouble Ticket" class="logo-img">
-                        <span></span>
+                    <a href="index.html" class="logo">
+                        <img src="assets/logo2.png" class="logo2-img">
+                        <img src="assets/logo.png" class="logo-img">
                     </a>
+
                     <div class="nav-links">
-                        <a href="/" class="nav-link">
-                            <i data-feather="home" class="nav-link-icon"></i>
-                            Inicio
-                        </a>
-                        <a href="/" class="nav-link">
-                            <i data-feather="list" class="nav-link-icon"></i>
-                            Tickets
-                        </a>
-                        <a href="/edit-ticket.html" class="nav-link">
-                            <i data-feather="plus" class="nav-link-icon"></i>
-                            Nuevo Ticket
-                        </a>
-                        <a href="/reports" class="nav-link">
-                            <i data-feather="bar-chart-2" class="nav-link-icon"></i>
-                            Reportes
-                        </a>
-                        <a href="/profile" class="nav-link">
-                            <i data-feather="user" class="nav-link-icon"></i>
-                            Perfil
-                        </a>
+                        <a href="index.html" class="nav-link">Inicio</a>
+                        <a href="tickets.html" class="nav-link">Tickets</a>
+                        <a href="edit-ticket.html" class="nav-link">Nuevo Ticket</a>
+                        <a href="reports.html" class="nav-link">Reportes</a>
+                        <a href="profile.html" class="nav-link">Perfil</a>
                     </div>
                 </div>
             </nav>

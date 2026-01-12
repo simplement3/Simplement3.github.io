@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reportes | Tech Trouble Ticket</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="components/navbar.js"></script>
+</head>
+
+<body class="bg-gray-50">
+    <div class="animated-bg"></div>
+    <custom-navbar></custom-navbar>
+
+    <main class="container mx-auto px-4 py-8 max-w-5xl">
+        <h1 class="text-3xl font-bold mb-6">Reportes</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow">
+                <h2 class="font-semibold text-lg">Total Tickets</h2>
+                <p id="totalTickets" class="text-3xl font-bold mt-2">0</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow">
+                <h2 class="font-semibold text-lg">Abiertos</h2>
+                <p id="openTickets" class="text-3xl font-bold mt-2">0</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow">
+                <h2 class="font-semibold text-lg">Resueltos</h2>
+                <p id="closedTickets" class="text-3xl font-bold mt-2">0</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+        document.getElementById('totalTickets').textContent = tickets.length;
+        document.getElementById('openTickets').textContent =
+            tickets.filter(t => t.status === 'Apertura').length;
+        document.getElementById('closedTickets').textContent =
+            tickets.filter(t => t.status === 'Resuelto').length;
+    </script>
+</body>
+
+</html>
