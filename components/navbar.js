@@ -69,12 +69,18 @@ class CustomNavbar extends HTMLElement {
                     width: auto;
                     display: block;
                 }
+                    .logo2-img {
+                    height: 85px;
+                    width: auto;
+                    display: block;
+                }
             </style>
             <nav>
                 <div class="nav-container">
                     <a href="/" class="logo">
-                        <img src="/assets/logo.png" alt="Tech Trouble Ticket" class="logo-img">
-                        <span>Tech Trouble Ticket</span>
+                        <img src="./assets/logo2.png" alt="Tech Trouble Ticket2" class="logo2-img">
+                        <img src="./assets/logo.png" alt="Tech Trouble Ticket" class="logo-img">
+                        <span></span>
                     </a>
                     <div class="nav-links">
                         <a href="/" class="nav-link">
