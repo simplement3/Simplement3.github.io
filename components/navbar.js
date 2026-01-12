@@ -55,12 +55,26 @@ class CustomNavbar extends HTMLElement {
                         justify-content: space-around;
                     }
                 }
+                .logo {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    font-size: 1.4rem;
+                    font-weight: 700;
+                    color: white;
+                    text-decoration: none;
+                }
+                .logo-img {
+                    height: 40px;
+                    width: auto;
+                    display: block;
+                }
             </style>
             <nav>
                 <div class="nav-container">
                     <a href="/" class="logo">
-                        <i data-feather="tool" class="logo-icon"></i>
-                        TechTroubleTickets
+                        <img src="/assets/logo.png" alt="Tech Trouble Ticket" class="logo-img">
+                        <span>Tech Trouble Ticket</span>
                     </a>
                     <div class="nav-links">
                         <a href="/" class="nav-link">
@@ -75,7 +89,7 @@ class CustomNavbar extends HTMLElement {
                             <i data-feather="plus" class="nav-link-icon"></i>
                             Nuevo Ticket
                         </a>
-<a href="/reports" class="nav-link">
+                        <a href="/reports" class="nav-link">
                             <i data-feather="bar-chart-2" class="nav-link-icon"></i>
                             Reportes
                         </a>
