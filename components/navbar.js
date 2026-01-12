@@ -26,7 +26,7 @@ class CustomNavbar extends HTMLElement {
                     text-decoration: none;
                 }
                 .logo-img {
-                    height: 70px;
+                    height: 80px;
                 }
                 .logo2-img {
                     height: 70px;
