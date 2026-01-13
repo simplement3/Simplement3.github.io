@@ -14,7 +14,6 @@
 
 <body>
     <div class="animated-bg"></div>
-
     <custom-navbar></custom-navbar>
 
     <!-- ================= LOGIN ================= -->
@@ -44,30 +43,32 @@
     </section>
 
     <!-- ================= DASHBOARD ================= -->
-    <section id="dashboardView" class="hidden container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-8">Dashboard</h1>
+    <section id="dashboardView" class="hidden">
+        <main class="container mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold mb-8">Dashboard</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white rounded-xl shadow p-6">
-                <h3 class="text-sm text-gray-500 mb-2">Tickets Totales</h3>
-                <p id="kpiTotal" class="text-3xl font-bold text-indigo-600">0</p>
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h3 class="text-sm text-gray-500 mb-2">Tickets Totales</h3>
+                    <p id="kpiTotal" class="text-3xl font-bold text-indigo-600">0</p>
+                </div>
 
-            <div class="bg-white rounded-xl shadow p-6">
-                <h3 class="text-sm text-gray-500 mb-2">Tickets en Apertura</h3>
-                <p id="kpiOpen" class="text-3xl font-bold text-yellow-500">0</p>
-            </div>
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h3 class="text-sm text-gray-500 mb-2">Tickets en Apertura</h3>
+                    <p id="kpiOpen" class="text-3xl font-bold text-yellow-500">0</p>
+                </div>
 
-            <div class="bg-white rounded-xl shadow p-6">
-                <h3 class="text-sm text-gray-500 mb-2">Tickets Resueltos</h3>
-                <p id="kpiResolved" class="text-3xl font-bold text-green-600">0</p>
-            </div>
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h3 class="text-sm text-gray-500 mb-2">Tickets Resueltos</h3>
+                    <p id="kpiResolved" class="text-3xl font-bold text-green-600">0</p>
+                </div>
 
-            <div class="bg-white rounded-xl shadow p-6">
-                <h3 class="text-sm text-gray-500 mb-2">Tickets Escalados</h3>
-                <p id="kpiEscalated" class="text-3xl font-bold text-red-600">0</p>
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h3 class="text-sm text-gray-500 mb-2">Tickets Escalados</h3>
+                    <p id="kpiEscalated" class="text-3xl font-bold text-red-600">0</p>
+                </div>
             </div>
-        </div>
+        </main>
     </section>
 
     <script>
