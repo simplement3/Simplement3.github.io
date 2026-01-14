@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
 
     if (themeToggle) {
@@ -75,6 +75,30 @@ document.addEventListener('DOMContentLoaded', () => {
             tickets.filter(t => t.status === 'Escalada').length;
     }
 
+    /* ================= RENDER TICKETS ================= */
+    const ticketGrid = document.getElementById('ticketGrid');
+
+    if (ticketGrid) {
+        refreshTickets();
+        ticketGrid.innerHTML = '';
+
+        tickets.forEach(t => {
+            const card = document.createElement('custom-ticket-card');
+
+            card.setAttribute('ticket-id', t.ticketId);
+            card.setAttribute('date', t.date);
+            card.setAttribute('time', t.time);
+            card.setAttribute('client', t.client);
+            card.setAttribute('issue', t.issue);
+            card.setAttribute('description', t.description);
+            card.setAttribute('status', t.status);
+            card.setAttribute('priority', t.priority);
+            card.setAttribute('type', t.type);
+
+            ticketGrid.appendChild(card);
+        });
+    }
+
     /* ================= FORM CREATE / EDIT ================= */
     const form = document.getElementById('ticketForm');
     if (!form) return;
@@ -88,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isEdit && currentTicket) {
         ticketId.value = currentTicket.ticketId;
         ticketDate.value = `${currentTicket.date} • ${currentTicket.time}`;
-
         client.value = currentTicket.client;
         phone.value = currentTicket.phone || '';
         email.value = currentTicket.email || '';
